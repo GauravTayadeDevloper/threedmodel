@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Model one</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@v0.157.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@v0.157.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from 'three';
+	import { OrbitControls } from 'three/addons/controls/OrbitControls.js'; 
+	 let clock = new THREE.Clock();	
+
+      // Create a scene
+      var scene = new THREE.Scene();
+      const axesHelper = new THREE.AxesHelper(5);
+      scene.add( axesHelper );
+      
+      
+      
+            var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+           window.addEventListener('resize', function () {
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+         var controls = new OrbitControls(camera, renderer.domElement);
+         
+     /* // Create a camera
+      var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.set(12, 1.5, 20);
+      camera.lookAt(0, 0, 0);
+
+      // Create a renderer
+      var renderer = new THREE.WebGLRenderer({antialias: true});
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+renderer.setClearColor(0x87ceeb);
+*/     var textureLoader = new THREE.TextureLoader();
+      var groundGeometry = new THREE.PlaneGeometry(50,50);
+      const textureg1 = textureLoader.load('path.jpg');
+      var groundMaterial = new THREE.MeshBasicMaterial({ map:textureg1 });
+      var ground = new THREE.Mesh(groundGeometry, groundMaterial);
+      ground.position.set(0,-1 ,0);
+      ground.rotation.x = Math.PI / 2; // Rotate it to be horizontal  
+      scene.add(ground);
+
+      var boxGeometry1 = new THREE.BoxGeometry(30,1,30);
+      const textureg = textureLoader.load('path.jpg');
+      var boxMaterial1 = new THREE.MeshBasicMaterial({ map: textureg });
+      var box1 = new THREE.Mesh(boxGeometry1, boxMaterial1);
+ 	box1.position.set(0, -0.5, -3)
+	    addEdges(box1, 0x000000);
+      scene.add(box1);
+
+      function addEdges(mesh, color) {
+ 		 var edges = new THREE.EdgesGeometry(mesh.geometry);
+ 		 var line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: color }));
+		  mesh.add(line);
+		}
+    function groundfloorleft(){
+    
+  
+      const texture = textureLoader.load('gwall.jpg');
+         const texture1 = textureLoader.load('wall.jpg');
+             var boxGeometry1 = new THREE.BoxGeometry(17.99, 3.99, 9.99);
+      var boxMaterial1 = new THREE.MeshBasicMaterial({ map:texture1});
+      var box1 = new THREE.Mesh(boxGeometry1, boxMaterial1);
+ 	    box1.position.set(-6, 2, 6)
+	  
+ //     scene.add(box1);
+  
+      var wrg = new THREE.BoxGeometry(2, 4, 2);
+      var wrm = new THREE.MeshBasicMaterial({ map:texture1});
+      var wr = new THREE.Mesh(wrg, wrm);
+      wr.position.set(2, 2, 0)
+	    addEdges(wr, 0x000000);
+      scene.add(wr);
+
+      var lwrg = new THREE.BoxGeometry(2, 4, 2);
+      var lwrm = new THREE.MeshBasicMaterial({ map:texture1});
+      var lwr = new THREE.Mesh(lwrg, lwrm);
+      lwr.position.set(2, 2, -4)
+	    addEdges(lwr, 0x000000);
+      scene.add(lwr);
+//1
+      var hodofcgeo = new THREE.BoxGeometry(4, 4, 6);
+      var hodofcmaterial = new THREE.MeshBasicMaterial({ map:texture1});
+      var hodofc = new THREE.Mesh(hodofcgeo, hodofcmaterial);
+      hodofc.position.set(1, 2, 8)
+	    addEdges(hodofc, 0x000000);
+      scene.add(hodofc);
+
+//2    
+      var classroomg = new THREE.BoxGeometry(9, 4, 6);
+      var classroommaterial = new THREE.MeshBasicMaterial({ map:texture1});
+      var classroom = new THREE.Mesh(classroomg, classroommaterial);
+      classroom.position.set(-5.5, 2, 8)
+	    addEdges(classroom, 0x000000);
+      scene.add(classroom);
+//3
+      
+      var libraryg = new THREE.BoxGeometry(3, 4, 6);
+      var librarymaterial = new THREE.MeshBasicMaterial({ map:texture1});
+      var library = new THREE.Mesh(libraryg, librarymaterial);
+      library.position.set(-11.5, 2, 8)
+	    addEdges(library, 0x000000);
+      scene.add(library);
+
+// 4
+    
+      var readingroomg = new THREE.BoxGeometry(2, 4, 6);
+      var readingroommaterial = new THREE.MeshBasicMaterial({ map:texture1});
+      var readingroom = new THREE.Mesh(readingroomg, readingroommaterial);
+      readingroom.position.set(-14, 2, 8)
+	    addEdges(readingroom, 0x000000);
+      scene.add(readingroom);
+
+    }
+
+
+
+    function groundfloorright(){
+    
+    const textureLoader = new THREE.TextureLoader();
+      const texture = textureLoader.load('gwall.jpg');
+      const texture1 = textureLoader.load('wall.jpg');
+      var boxGeometry1 = new THREE.BoxGeometry(9.99, 3.99, 25.001);
+      const boxMaterial1 = [
+        new THREE.MeshStandardMaterial({ map: texture1  }), // Right face
+        new THREE.MeshStandardMaterial({ map: texture1  }), // Left face
+        new THREE.MeshStandardMaterial({ map: texture }), // Top face
+        new THREE.MeshStandardMaterial({ map: texture }), // Bottom face
+        new THREE.MeshStandardMaterial({ map: texture1  }), // Front face
+        new THREE.MeshStandardMaterial({ map: texture1  })     // Back face with texture
+    ];
+
+      //var boxMaterial1 = new THREE.MeshBasicMaterial({ map:texture1 });
+      var box1 = new THREE.Mesh(boxGeometry1, boxMaterial1);
+ 	    box1.position.set(8, 2, -1)
+	    
+     // scene.add(box1);
+
+// 1
+var teacherofg1 = new THREE.BoxGeometry(6, 4, 3);
+      var  teacherofm1= new THREE.MeshBasicMaterial({ map:texture});
+      var teacherof1 = new THREE.Mesh(teacherofg1, teacherofm1);
+      teacherof1.position.set(10, 2, 8)
+	    addEdges(teacherof1, 0x000000);
+      scene.add(teacherof1);
+//2
+var teacherofg2 = new THREE.BoxGeometry(6, 4, 3);
+      var teacherofMaterial2 = new THREE.MeshBasicMaterial({ map:texture });
+      var teacherof2 = new THREE.Mesh(teacherofg2, teacherofMaterial2);
+      teacherof2.position.set(10, 2, 5)
+	    addEdges(teacherof2, 0x000000);
+      scene.add(teacherof2);
+//3
+var teacherofg3 = new THREE.BoxGeometry(6, 4, 2);
+      var teacherof3Material = new THREE.MeshBasicMaterial({ map:texture });
+      var teacherof3 = new THREE.Mesh(teacherofg3, teacherof3Material);
+      teacherof3.position.set(10, 2, 2.5)
+	    addEdges(teacherof3, 0x000000);
+      scene.add(teacherof3);
+//4
+var teacherof4g = new THREE.BoxGeometry(6, 4, 3);
+      var teacherof4m  = new THREE.MeshBasicMaterial({ map:texture });
+      var teacherof4 = new THREE.Mesh(teacherof4g, teacherof4m);
+      teacherof4.position.set(10, 2, 0)
+	    addEdges(teacherof4, 0x000000);
+      scene.add(teacherof4);
+//5
+var teacherof5g = new THREE.BoxGeometry(6, 4, 3);
+      var teacherof5m = new THREE.MeshBasicMaterial({ map:texture });
+      var teacherof5 = new THREE.Mesh(teacherof5g, teacherof5m);
+      teacherof5.position.set(10, 2, -3)
+	    addEdges(teacherof5, 0x000000);
+      scene.add(teacherof5);
+//6
+var teacherof6g = new THREE.BoxGeometry(6, 4, 3);
+      var teacherof6m = new THREE.MeshBasicMaterial({ map:texture });
+      var teacherof6 = new THREE.Mesh(teacherof6g, teacherof6m);
+      teacherof6.position.set(10, 2, -6)
+	    addEdges(teacherof6, 0x000000);
+      scene.add(teacherof6);
+//7
+var lcrr= new THREE.BoxGeometry(6, 4, 3);
+      var lcrm = new THREE.MeshBasicMaterial({ map:texture });
+      var lcr= new THREE.Mesh(lcrr, lcrm);
+      lcr.position.set(10, 2, -9)
+	    addEdges(lcr, 0x000000);
+      scene.add(lcr);
+// 8
+
+
+var spg = new THREE.BoxGeometry(6, 4, 0.08);
+      var spm = new THREE.MeshBasicMaterial({ map:texture });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(10, 2, -12.5);
+	   
+      scene.add(sp);
+	
+	var spg = new THREE.BoxGeometry(10, 4, 0.08);
+      var spm = new THREE.MeshBasicMaterial({ map:texture });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(8, 2, -13.4)
+	  
+      scene.add(sp);
+      
+      	var spg = new THREE.BoxGeometry(6, 4, 0.08);
+      var spm = new THREE.MeshBasicMaterial({ map:texture });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(10, 2, 11.5)
+	 
+      scene.add(sp);
+      var spg = new THREE.BoxGeometry(4, 4, 0.08);
+      var spm = new THREE.MeshBasicMaterial({ color: '#808080'  });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(5, 2, 11.5)
+	    
+      scene.add(sp);
+            	var spg = new THREE.BoxGeometry(10, 4, 0.08);
+      var spm = new THREE.MeshBasicMaterial({ map:texture });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(8, 6, 11.5)
+	  
+      scene.add(sp);
+      var spg = new THREE.BoxGeometry(10, 4, 0.08);
+      var spm = new THREE.MeshBasicMaterial({ map:texture });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(8, 10, -13.5)
+	    /* addEdges(sp, 0x000000); */
+      scene.add(sp);
+      var spg = new THREE.BoxGeometry(0.08, 4, 16);
+      var spm = new THREE.MeshBasicMaterial({ map:texture });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(3, 2,-5.5)
+	     
+      scene.add(sp);
+            var spg = new THREE.BoxGeometry(0.08, 4, 16);
+      var spm = new THREE.MeshBasicMaterial({ map:texture });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(3, 6,-5.5)
+	    
+      scene.add(sp);
+      var spg = new THREE.BoxGeometry(0.08, 4, 18);
+      var spm = new THREE.MeshBasicMaterial({ map:texture });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(3, 10,-4.5)
+	   
+      scene.add(sp);
+      
+                  var spg = new THREE.BoxGeometry(0.08, 8, 2);
+      var spm = new THREE.MeshBasicMaterial({ map:texture});
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(13, 4, 10.5)
+	    
+      scene.add(sp);
+      var spg = new THREE.BoxGeometry(0.08, 8, 3);
+      var spm = new THREE.MeshBasicMaterial({ map:texture });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(13, 4, -12)
+	    
+      scene.add(sp);
+            var spg = new THREE.BoxGeometry(0.08, 4, 10);
+      var spm = new THREE.MeshBasicMaterial({ map:texture });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(-15, 2, 6)
+	   
+      scene.add(sp);
+            var spg = new THREE.BoxGeometry(0.08, 4, 10);
+      var spm = new THREE.MeshBasicMaterial({ map:texture});
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(-14, 6, 6)
+	    
+      scene.add(sp);
+          var spg = new THREE.BoxGeometry(0.08, 8, 0.5);
+      var spm = new THREE.MeshBasicMaterial({ map:texture });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(3, 4, 11.25)
+	    
+      scene.add(sp);
+          var spg = new THREE.BoxGeometry(18, 4, 0.08);
+      var spm = new THREE.MeshBasicMaterial({ map:texture });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(-6, 2, 1)
+	   
+      scene.add(sp);
+      var spg = new THREE.BoxGeometry(17, 4, 0.08);
+      var spm = new THREE.MeshBasicMaterial({ map:texture });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(-5.5, 6, 1)
+	  
+      scene.add(sp);
+      
+	}
+      const texture1 = textureLoader.load('wall.jpg');
+function firstfloorleft(){
+	const textureLoader = new THREE.TextureLoader();
+	  const texture = textureLoader.load('gwall.jpg');
+	   const texture1 = textureLoader.load('wall.jpg');
+         const texture11 = textureLoader.load('path1.jpg');
+  var boxGeometry1 = new THREE.BoxGeometry(18.0, 0.01, 10);
+      var boxMaterial1 = new THREE.MeshBasicMaterial({ map:texture11 });
+      var box1 = new THREE.Mesh(boxGeometry1, boxMaterial1);
+ 	    box1.position.set(-6, 4, 6)
+	    
+      scene.add(box1);
+       var boxGeometry1 = new THREE.BoxGeometry(17.0, 0, 9.99);
+      var boxMaterial1 = new THREE.MeshBasicMaterial({ map:texture11});
+      var box1 = new THREE.Mesh(boxGeometry1, boxMaterial1);
+ 	    box1.position.set(-5.5, 8, 6)
+	    
+      scene.add(box1);
+
+      var secfg = new THREE.BoxGeometry(8, 3.99, 9.99);
+      var secfMaterial = new THREE.MeshBasicMaterial({ map:texture1 });
+      var secf = new THREE.Mesh(secfg, secfMaterial);
+      secf.position.set(-5.5, 10, 6)
+	    addEdges(secf, 0x000000);
+      scene.add(secf);
+
+      var wrg = new THREE.BoxGeometry(2, 4, 2);
+      var wrm = new THREE.MeshBasicMaterial({ map:texture1 });
+      var wr = new THREE.Mesh(wrg, wrm);
+      wr.position.set(2, 6, 0)
+	    addEdges(wr, 0x000000);
+      scene.add(wr);
+
+      var lwrg = new THREE.BoxGeometry(2, 4, 2);
+      var lwrm = new THREE.MeshBasicMaterial({ map:texture1});
+      var lwr = new THREE.Mesh(lwrg, lwrm);
+      lwr.position.set(2, 6, -4)
+	    addEdges(lwr, 0x000000);
+      scene.add(lwr);
+
+      var clabg = new THREE.BoxGeometry(17, 4, 6);
+      var clabm = new THREE.MeshBasicMaterial({ map:texture1});
+      var clab = new THREE.Mesh(clabg, clabm);
+      clab.position.set(-5.5, 6, 8)
+	    addEdges(clab, 0x000000);
+      scene.add(clab);
+
+
+}
+
+
+function firstfloorright(){
+	const textureLoader = new THREE.TextureLoader();
+	  const texture = textureLoader.load('gwall.jpg');
+	 const texture1 = textureLoader.load('wall.jpg');
+       const texture11 = textureLoader.load('path1.jpg');
+  var boxGeometry1 = new THREE.BoxGeometry(4.0, 0.1, 25.01);
+      var boxMaterial1 = new THREE.MeshBasicMaterial({  map:texture11});
+      var box1 = new THREE.Mesh(boxGeometry1, boxMaterial1);
+ 	    box1.position.set(5, 4, -1)
+	    
+      scene.add(box1);
+  var boxGeometry1 = new THREE.BoxGeometry(4.0, 0.1, 18);
+      var boxMaterial1 = new THREE.MeshBasicMaterial({  map:texture11 });
+      var box1 = new THREE.Mesh(boxGeometry1, boxMaterial1);
+ 	    box1.position.set(5, 12, -4.5)
+	   
+      scene.add(box1);
+      var secfg = new THREE.BoxGeometry(9.99, 0.1, 25.0);
+      var secfMaterial = new THREE.MeshBasicMaterial({ map:texture11  });
+      var secf = new THREE.Mesh(secfg, secfMaterial);
+      secf.position.set(8, 8, -1)
+	   
+      scene.add(secf);
+
+      var secfg = new THREE.BoxGeometry(6, 4,18);
+      var secfMaterial = new THREE.MeshBasicMaterial({  map:texture  });
+      var secf = new THREE.Mesh(secfg, secfMaterial);
+      secf.position.set(10, 10, -4.5)
+	    addEdges(secf, 0x000000);
+      scene.add(secf);
+
+      var secfg = new THREE.BoxGeometry(6,2.99,2.99);
+      var secfMaterial = new THREE.MeshBasicMaterial({ map:texture });
+      var secf = new THREE.Mesh(secfg, secfMaterial);
+      secf.position.set(10, 9.5, 10)
+	    addEdges(secf, 0x000000);
+      scene.add(secf);
+
+      //1
+var teacherofg1 = new THREE.BoxGeometry(5.99, 3.99, 2.99);
+      var  teacherofm1= new THREE.MeshBasicMaterial({ map:texture });
+      var teacherof1 = new THREE.Mesh(teacherofg1, teacherofm1);
+      teacherof1.position.set(10, 6, 8)
+	    addEdges(teacherof1, 0x000000);
+      scene.add(teacherof1);
+//2
+var teacherofg2 = new THREE.BoxGeometry(5.99, 3.99, 2.99);
+      var teacherofMaterial2 = new THREE.MeshBasicMaterial({ map:texture });
+      var teacherof2 = new THREE.Mesh(teacherofg2, teacherofMaterial2);
+      teacherof2.position.set(10, 6, 5)
+	    addEdges(teacherof2, 0x000000);
+      scene.add(teacherof2);
+//3
+var teacherofg3 = new THREE.BoxGeometry(5.99, 3.99, 2.99);
+      var teacherof3Material = new THREE.MeshBasicMaterial({ map:texture });
+      var teacherof3 = new THREE.Mesh(teacherofg3, teacherof3Material);
+      teacherof3.position.set(10, 6, 2)
+	    addEdges(teacherof3, 0x000000);
+      scene.add(teacherof3);
+
+//5
+var teacherof5g = new THREE.BoxGeometry(5.99, 3.99, 3.99);
+      var teacherof5m = new THREE.MeshBasicMaterial({ map:texture });
+      var teacherof5 = new THREE.Mesh(teacherof5g, teacherof5m);
+      teacherof5.position.set(10, 6, -1.5)
+	    addEdges(teacherof5, 0x000000);
+      scene.add(teacherof5);
+//6
+var teacherof6g = new THREE.BoxGeometry(5.99, 3.99, 6.99);
+      var teacherof6m = new THREE.MeshBasicMaterial({ map:texture });
+      var teacherof6 = new THREE.Mesh(teacherof6g, teacherof6m);
+      teacherof6.position.set(10, 6, -7)
+	    addEdges(teacherof6, 0x000000);
+      scene.add(teacherof6);
+//7
+var lcrr= new THREE.BoxGeometry(10, 4, 1);
+      var lcrm = new THREE.MeshBasicMaterial({ map:texture });
+      var lcr= new THREE.Mesh(lcrr, lcrm);
+      lcr.position.set(8, 6, -13)
+	    addEdges(lcr, 0x000000);
+      scene.add(lcr);
+
+}
+
+
+
+	
+function walls(){
+const textureLoader = new THREE.TextureLoader();
+      const texture = textureLoader.load('stonew.jpg');
+ const texture1 = textureLoader.load('wall.jpg');
+
+//compound walls
+var spg = new THREE.BoxGeometry(50, 4, 0.08);
+      var spm = new THREE.MeshBasicMaterial({  map:texture  });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(0, 0.9, -25)
+	    
+      scene.add(sp);
+      var spg = new THREE.BoxGeometry(28, 4, 0.08);
+      var spm = new THREE.MeshBasicMaterial({  map:texture  });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(-10.5, 0.9, 25)
+	    
+      scene.add(sp);
+      
+      var spg = new THREE.BoxGeometry(14.5, 4, 0.08);
+      var spm = new THREE.MeshBasicMaterial({  map:texture  });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(17.7, 0.9, 25)
+	  
+      scene.add(sp);
+      
+var spg = new THREE.BoxGeometry(0.08, 4, 50);
+      var spm = new THREE.MeshBasicMaterial({  map:texture  });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(-25, 0.9, 0)
+	
+      scene.add(sp);
+      
+      
+var spg = new THREE.BoxGeometry(0.08, 4, 50);
+      var spm = new THREE.MeshBasicMaterial({  map:texture  });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(25, 0.9, 0)
+	
+      scene.add(sp);
+      
+//building walls      
+var spg = new THREE.BoxGeometry(4, 1.5, 0.08);
+      var spm = new THREE.MeshBasicMaterial({ map:texture1 });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(5, 8.7, 11.455)
+	
+      scene.add(sp);
+var spg = new THREE.BoxGeometry(4.5, 1.5, 0.08);
+      var spm = new THREE.MeshBasicMaterial({ map:texture1 });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(0.8, 8.7, 11 )
+	  
+      scene.add(sp);
+var spg = new THREE.BoxGeometry(4.5, 1.5, 0.08);
+      var spm = new THREE.MeshBasicMaterial({ map:texture1 });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(0.8, 8.7, 1)
+	  
+      scene.add(sp);
+      
+      var spg = new THREE.BoxGeometry(4.5, 1.5, 0.08);
+      var spm = new THREE.MeshBasicMaterial({ map:texture1 });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(-11.7, 8.7, 11)
+	   
+      scene.add(sp);
+var spg = new THREE.BoxGeometry(4.5, 1.5, 0.08);
+      var spm = new THREE.MeshBasicMaterial({ map:texture1 });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(-11.7, 8.7, 1)
+	    
+      scene.add(sp);
+      
+var spg = new THREE.BoxGeometry(1, 1.5, 0.08);
+      var spm = new THREE.MeshBasicMaterial({ map:texture1 });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(-14.5, 4.7, 1)
+	  
+      scene.add(sp);
+      
+var spg = new THREE.BoxGeometry(1, 1.5, 0.08);
+      var spm = new THREE.MeshBasicMaterial({ map:texture1 });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(-14.5, 4.7, 11)
+	    
+      scene.add(sp);
+      
+var spg = new THREE.BoxGeometry(0.08, 1.5, 10);
+      var spm = new THREE.MeshBasicMaterial({ map:texture1 });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(-14, 8.7, 6)
+	   
+      scene.add(sp);
+      
+      var spg = new THREE.BoxGeometry(0.08, 1.5, 4);
+      var spm = new THREE.MeshBasicMaterial({ map:texture1 });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(13, 8.7, 6.5)
+	    
+      scene.add(sp);
+      
+      
+      var spg = new THREE.BoxGeometry(0.08, 1.5, 0.4);
+      var spm = new THREE.MeshBasicMaterial({ map:texture1 });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(3, 8.7, 11.2 )
+	    
+      scene.add(sp);
+      
+      var spg = new THREE.BoxGeometry(0.08, 1.5, 10);
+      var spm = new THREE.MeshBasicMaterial({ map:texture1 });
+      var sp = new THREE.Mesh(spg, spm);
+      sp.position.set(-15, 4.7, 6)
+	  
+      scene.add(sp);
+
+
+}
+ walls();
+
+
+
+
+
+
+function doorsff()
+{
+
+  const textureLoader = new THREE.TextureLoader();
+     const texture = textureLoader.load('door.png');
+
+      var boxMaterial21 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry21 = new THREE.BoxGeometry(1.5, 3, 0.1);
+      var box21 = new THREE.Mesh(boxGeometry21, boxMaterial21);
+ 	    box21.position.set(-2.2, 1.5, 5)
+	    addEdges(box21, 0x000000);
+	   
+      scene.add(box21);
+     // box21.material.colorWrite = false;
+
+
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(1.5, 3, 0.1);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(-5.2, 1.5, 5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+
+
+
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(1.5, 3, 0.1);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(-9, 1.5, 5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture});
+      var boxGeometry2 = new THREE.BoxGeometry(1.5, 3, 0.1);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(-11.8, 1.5, 5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(1.7, 3, 0.1);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(-14, 1.5, 5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+
+
+
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(2, 3, 0.1);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(-8, 5.5, 5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(2, 3, 0.1);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(6, 5.5, -12)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+
+
+}
+doorsff();
+function windowsff(){
+      const textureLoader = new THREE.TextureLoader();
+      const texture = textureLoader.load('window.png');
+	 const texture1 = textureLoader.load('door.png');
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture1});
+      var boxGeometry2 = new THREE.BoxGeometry(3, 3, 0.1);
+      var box20 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box20.position.set(5, 1.5, 11.56)
+	    addEdges(box20, 0x000000);
+	    //box20.material.colorWrite = false;
+      scene.add(box20);
+      
+
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture });
+      var boxGeometry2 = new THREE.BoxGeometry(1,1.5, 0.1);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(6, 6, 11.56)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+    
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture });
+      var boxGeometry2 = new THREE.BoxGeometry(5,2, 0.1);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(8, 6, -13.52)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(1,1, 0.1);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(1, 6, 11.01)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(1,1, 0);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(-1, 6, 11.01)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(1,1, 0);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(-3, 6, 11.01)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(1,1, 0);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(-5, 6, 11.01)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(1,1, 0);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(-7, 6, 11.01)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(1,1, 0);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(-9, 6, 11.01)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+
+
+
+
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture });
+      var boxGeometry2 = new THREE.BoxGeometry(1,1, 0);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(-11, 6, 11.01)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture });
+      var boxGeometry2 = new THREE.BoxGeometry(1,1, 0);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(-13, 6, 110.1)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(3, 2, 0);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	  box2.position.set(1, 2, 11.01)
+	  addEdges(box2, 0x000000);
+      scene.add(box2);
+	//box2.material.colorWrite = false;
+	
+	
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(3, 2, 0);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	  box2.position.set(1, 2, 11.01)
+	  addEdges(box2, 0x000000);
+      scene.add(box2);
+	//box2.material.colorWrite = false;
+
+
+
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture });
+      var boxGeometry2 = new THREE.BoxGeometry(2.7, 2, 0);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	  box2.position.set(-2.5, 2, 11.01)
+	  addEdges(box2, 0x000000);
+      scene.add(box2);
+	//box2.material.colorWrite = false;
+
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(2.7, 2, 0);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	  box2.position.set(-5.5, 2, 11.01)
+	  addEdges(box2, 0x000000);
+      scene.add(box2);
+	//box2.material.colorWrite = false;
+
+      
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(2.5, 2, 0);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	     box2.position.set(-8.5 , 2, 11.01)
+	     addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      
+     
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(2.5, 2, 0);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	     box2.position.set(-11.5 , 2, 11.01)
+	     addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture  });
+      var boxGeometry2 = new THREE.BoxGeometry(3.5, 2, 0);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	  box2.position.set(-5.5, 10, 11.01)
+	  addEdges(box2, 0x000000);
+      scene.add(box2);
+	//box2.material.colorWrite = false;
+
+
+     }
+function doorssf(){
+
+  const textureLoader = new THREE.TextureLoader();
+      const texture1 = textureLoader.load('door.png');
+
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture1  });
+
+
+      var boxGeometry = new THREE.BoxGeometry(0.1, 3,1.5);
+      var box = new THREE.Mesh(boxGeometry, boxMaterial2);
+ 	    box.position.set(6.99, 1.5, 8)
+	    addEdges(box, 0x000000);
+      scene.add(box);
+     // box.material.colorWrite = false;
+
+      
+      var boxGeometry2 = new THREE.BoxGeometry(0.1, 3,1.5);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(7, 1.5, 5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+     //box2.material.colorWrite = false;
+
+      
+      var boxGeometry2 = new THREE.BoxGeometry(0.1, 3,1.5);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(7, 1.5, 2.5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+     //box2.material.colorWrite = false;
+
+      
+      var boxGeometry2 = new THREE.BoxGeometry(0.1, 3,1.5);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(7, 1.5, 0.5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+     //box2.material.colorWrite = false;
+
+      var boxGeometry2 = new THREE.BoxGeometry(0.1, 3,1.5);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(7, 1.5, -3.5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+     //box2.material.colorWrite = false;
+
+      var boxGeometry2 = new THREE.BoxGeometry(0.1, 3,1.5);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(7, 1.5, -6.5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+     //box2.material.colorWrite = false;
+
+      var boxGeometry2 = new THREE.BoxGeometry(0.1, 3,1.5);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(7, 1.5, -9.5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+     //box2.material.colorWrite = false;
+//
+  var boxGeometry = new THREE.BoxGeometry(0.1, 3,1.5);
+      var box = new THREE.Mesh(boxGeometry, boxMaterial2);
+ 	    box.position.set(6.99, 5.5, 8)
+	    addEdges(box, 0x000000);
+      scene.add(box);
+     // box.material.colorWrite = false;
+
+      
+      var boxGeometry2 = new THREE.BoxGeometry(0.1, 3,1.5);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(7, 5.5, 5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+     //box2.material.colorWrite = false;
+
+      
+      var boxGeometry2 = new THREE.BoxGeometry(0.1, 3,1.5);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(7, 5.5, 2.5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+     //box2.material.colorWrite = false;
+    var boxGeometry2 = new THREE.BoxGeometry(0.1, 3,1.5);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(7, 5.5, -2.5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+     //box2.material.colorWrite = false;
+     
+        var boxGeometry2 = new THREE.BoxGeometry(0.1, 3,1.5);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(7, 5.5, -6)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+     //box2.material.colorWrite = false;
+
+      var boxGeometry2 = new THREE.BoxGeometry(0.1, 3,1.5);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(7, 5.5, -9.5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+     //box2.material.colorWrite = false;
+
+}
+doorssf();
+     function windowssf(){
+
+
+      const textureLoader = new THREE.TextureLoader();
+      const texture1 = textureLoader.load('window.png');
+
+      var boxMaterial2 = new THREE.MeshBasicMaterial({  map:texture1  });
+
+
+      var boxGeometry2 = new THREE.BoxGeometry(0, 2, 4.5);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(-15.1, 2, 8)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      var boxGeometry2 = new THREE.BoxGeometry(0, 2, 2.7);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(13.01, 2, 8)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      var boxGeometry2 = new THREE.BoxGeometry(0, 2, 2.7);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(13.01, 2, 5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+
+      var boxGeometry2 = new THREE.BoxGeometry(0, 2, 1.7);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(13.01, 2, 2.5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      
+      var boxGeometry2 = new THREE.BoxGeometry(0, 2, 2.7);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(13.01, 2, 0)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      var boxGeometry2 = new THREE.BoxGeometry(0, 2, 2.7);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(13.01, 2, -3)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      var boxGeometry2 = new THREE.BoxGeometry(0.1, 2, 2.7);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(13.01, 2, -6)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      var boxGeometry2 = new THREE.BoxGeometry(0, 2, 2.7);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(13.01, 2, -9)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+
+      var boxGeometry2 = new THREE.BoxGeometry(0, 2, 2.7);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(13, 6, 8)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      var boxGeometry2 = new THREE.BoxGeometry(0, 2, 2.7);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(13, 6, 5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+
+      var boxGeometry2 = new THREE.BoxGeometry(0, 2, 2.7);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(13, 6, 2)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      
+      var boxGeometry2 = new THREE.BoxGeometry(0, 2, 1.7);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(13, 6, -0.7)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      var boxGeometry2 = new THREE.BoxGeometry(0, 2, 1.7);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(13, 6, -2.5)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      var boxGeometry2 = new THREE.BoxGeometry(0, 2, 2.7);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(13, 6, -6)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+      var boxGeometry2 = new THREE.BoxGeometry(0, 2, 2.7);
+      var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
+ 	    box2.position.set(13, 6, -9)
+	    addEdges(box2, 0x000000);
+      scene.add(box2);
+      //box2.material.colorWrite = false;
+
+     }
+
+function stairs1(){
+      const textureLoader = new THREE.TextureLoader();
+      const stairtex = textureLoader.load('stair.jpg');
+var stepWidth = 0.98; // Width of each step
+var stepHeight = 0.4; // Height of each step
+var stepDepth = 1; // Depth of each step
+var numSteps = 6; // Number of steps
+
+var stairsGroup = new THREE.Group();
+for (var i = 0; i < numSteps; i++) {
+    var stepGeometry = new THREE.BoxGeometry(stepWidth, stepHeight, stepDepth);
+    var stepMaterial = new THREE.MeshBasicMaterial({  map: stairtex  });
+    var stepMesh = new THREE.Mesh(stepGeometry, stepMaterial);
+
+    
+    stepMesh.position.set((i * stepDepth)+7.5, i * stepHeight, 10);
+
+     
+    stairsGroup.add(stepMesh);
+}
+
+ 
+scene.add(stairsGroup);
+}
+stairs1();
+
+function stairs2(){
+      const textureLoader = new THREE.TextureLoader();
+      const stairtex = textureLoader.load('stair.jpg');
+var stepWidth = 0.98; // Width of each step
+var stepHeight = 0.4; // Height of each step
+var stepDepth = 1; // Depth of each step
+var numSteps = 6; // Number of steps
+
+var stairsGroup = new THREE.Group();
+for (var i = 0; i < numSteps; i++) {
+    var stepGeometry = new THREE.BoxGeometry(stepWidth, stepHeight, stepDepth);
+    var stepMaterial = new THREE.MeshBasicMaterial({  map: stairtex  });
+    var stepMesh = new THREE.Mesh(stepGeometry, stepMaterial);
+
+    
+    stepMesh.position.set((-i * stepDepth)+12.5, (i * stepHeight)+2, 11);
+
+     
+    stairsGroup.add(stepMesh);
+}
+
+ 
+scene.add(stairsGroup);
+}
+
+stairs2();
+
+function stairs11(){
+      const textureLoader = new THREE.TextureLoader();
+      const stairtex = textureLoader.load('stair.jpg');
+var stepWidth = 0.98; // Width of each step
+var stepHeight = 0.4; // Height of each step
+var stepDepth = 1; // Depth of each step
+var numSteps = 6; // Number of steps
+
+var stairsGroup = new THREE.Group();
+for (var i = 0; i < numSteps; i++) {
+    var stepGeometry = new THREE.BoxGeometry(stepWidth, stepHeight, stepDepth);
+    var stepMaterial = new THREE.MeshBasicMaterial({  map: stairtex });
+    var stepMesh = new THREE.Mesh(stepGeometry, stepMaterial);
+
+    
+    stepMesh.position.set((i * stepDepth)+7.5, i * stepHeight, -12);
+
+     
+    stairsGroup.add(stepMesh);
+}
+
+ 
+scene.add(stairsGroup);
+}
+stairs11();
+
+function stairs22(){
+      const textureLoader = new THREE.TextureLoader();
+      const stairtex = textureLoader.load('stair.jpg');
+var stepWidth = 0.98; // Width of each step
+var stepHeight = 0.4; // Height of each step
+var stepDepth = 1; // Depth of each step
+var numSteps = 6; // Number of steps
+
+var stairsGroup = new THREE.Group();
+for (var i = 0; i < numSteps; i++) {
+    var stepGeometry = new THREE.BoxGeometry(stepWidth, stepHeight, stepDepth);
+    var stepMaterial = new THREE.MeshBasicMaterial({  map: stairtex });
+    var stepMesh = new THREE.Mesh(stepGeometry, stepMaterial);
+
+    
+    stepMesh.position.set((-i * stepDepth)+12.5, (i * stepHeight)+2, -11);
+
+     
+    stairsGroup.add(stepMesh);
+}
+
+ 
+scene.add(stairsGroup);
+}
+
+stairs22();
+
+
+
+function stairs10(){
+      const textureLoader = new THREE.TextureLoader();
+      const stairtex = textureLoader.load('stair.jpg');
+var stepWidth = 0.98; // Width of each step
+var stepHeight = 0.4; // Height of each step
+var stepDepth = 1; // Depth of each step
+var numSteps = 6; // Number of steps
+
+var stairsGroup = new THREE.Group();
+for (var i = 0; i < numSteps; i++) {
+    var stepGeometry = new THREE.BoxGeometry(stepWidth, stepHeight, stepDepth);
+    var stepMaterial = new THREE.MeshBasicMaterial({  map: stairtex  });
+    var stepMesh = new THREE.Mesh(stepGeometry, stepMaterial);
+
+    
+    stepMesh.position.set((i * stepDepth)+7.5, (i * stepHeight)+4, 10);
+
+     
+    stairsGroup.add(stepMesh);
+}
+
+ 
+scene.add(stairsGroup);
+}
+stairs10();
+
+function stairs20(){
+      const textureLoader = new THREE.TextureLoader();
+      const stairtex = textureLoader.load('stair.jpg');
+var stepWidth = 0.98; // Width of each step
+var stepHeight = 0.4; // Height of each step
+var stepDepth = 1; // Depth of each step
+var numSteps = 6; // Number of steps
+
+var stairsGroup = new THREE.Group();
+for (var i = 0; i < numSteps; i++) {
+    var stepGeometry = new THREE.BoxGeometry(stepWidth, stepHeight, stepDepth);
+    var stepMaterial = new THREE.MeshBasicMaterial({  map: stairtex  });
+    var stepMesh = new THREE.Mesh(stepGeometry, stepMaterial);
+
+    
+    stepMesh.position.set((-i * stepDepth)+12.5, (i * stepHeight)+6, 11);
+
+     
+    stairsGroup.add(stepMesh);
+}
+
+ 
+scene.add(stairsGroup);
+}
+
+stairs20();
+
+function stairs110(){
+      const textureLoader = new THREE.TextureLoader();
+      const stairtex = textureLoader.load('stair.jpg');
+var stepWidth = 0.98; // Width of each step
+var stepHeight = 0.4; // Height of each step
+var stepDepth = 1; // Depth of each step
+var numSteps = 6; // Number of steps
+
+var stairsGroup = new THREE.Group();
+for (var i = 0; i < numSteps; i++) {
+    var stepGeometry = new THREE.BoxGeometry(stepWidth, stepHeight, stepDepth);
+    var stepMaterial = new THREE.MeshBasicMaterial({  map: stairtex });
+    var stepMesh = new THREE.Mesh(stepGeometry, stepMaterial);
+
+    
+    stepMesh.position.set((i * stepDepth)+7.5, (i * stepHeight)+4, -12);
+
+     
+    stairsGroup.add(stepMesh);
+}
+
+ 
+scene.add(stairsGroup);
+}
+stairs110();
+
+function stairs220(){
+ const textureLoader = new THREE.TextureLoader();
+ const stairtex = textureLoader.load('stair.jpg');
+var stepWidth = 0.98; // Width of each step
+var stepHeight = 0.4; // Height of each step
+var stepDepth = 1; // Depth of each step
+var numSteps = 6; // Number of steps
+
+var stairsGroup = new THREE.Group();
+for (var i = 0; i < numSteps; i++) {
+    var stepGeometry = new THREE.BoxGeometry(stepWidth, stepHeight, stepDepth);
+    var stepMaterial = new THREE.MeshBasicMaterial({ map: stairtex });
+    var stepMesh = new THREE.Mesh(stepGeometry, stepMaterial);
+
+    
+    stepMesh.position.set((-i * stepDepth)+12.5, (i * stepHeight)+6, -11);
+
+     
+    stairsGroup.add(stepMesh);
+}
+
+ 
+scene.add(stairsGroup);
+}
+
+stairs220();
+
+
+
+
+function stairsm(){
+
+      
+      const textureLoader = new THREE.TextureLoader();
+ var boxGeometry1 = new THREE.BoxGeometry(3, 1, 0.5);
+      const stairtex = textureLoader.load('stair.jpg');
+      var boxMaterial1 = new THREE.MeshBasicMaterial({ map: stairtex});
+      var box1 = new THREE.Mesh(boxGeometry1, boxMaterial1);
+ 	    box1.position.set(5,-0.5,12.25)
+	    addEdges(box1, 0x000000);
+      scene.add(box1);
+      
+ var boxGeometry1 = new THREE.BoxGeometry(3, 0.7, 0.5);
+      var boxMaterial1 = new THREE.MeshBasicMaterial({ map: stairtex});
+      var box1 = new THREE.Mesh(boxGeometry1, boxMaterial1);
+ 	    box1.position.set(5,-0.65,12.75)
+	    addEdges(box1, 0x000000);
+      scene.add(box1);
+      
+      var boxGeometry1 = new THREE.BoxGeometry(3, 0.5, 0.5);
+      var boxMaterial1 = new THREE.MeshBasicMaterial({ map: stairtex});
+      var box1 = new THREE.Mesh(boxGeometry1, boxMaterial1);
+ 	    box1.position.set(5,-0.75,13.25)
+	    addEdges(box1, 0x000000);
+      scene.add(box1);
+      
+      
+}
+
+stairsm();
+
+
+
+
+
+
+  groundfloorright();
+      groundfloorleft();
+      firstfloorright();
+      firstfloorleft();
+      windowsff();
+      windowssf();	
+
+//	 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'; 
+  //   var controls = new OrbitControls(camera, renderer.domElement);
+     
+     
+     
+    // var animate = function () {
+      //  requestAnimationFrame(animate);
+
+     // Render the scene
+//     renderer.render(scene, camera); };
+     // animate();
+   /* import { FirstPersonControls } from 'three/addons/controls/FirstPersonControls.js';addEdges(sp, 0x000000);
+     const controls = new PointerLockControls( camera, renderer.domElement );
+      var clock= new THREE.Clock();	
+    
+const keyboard=[]; 
+addEventListener('keydown',(e)=>{
+keyboard[e.key] = true;
+});
+addEventListener('keyup',(e)=>{addEdges(sp, 0x000000);addEdges(sp, 0x000000);
+keyboard[e.key] = false;
+})	
+function process_kboard(delta){addEdges(sp, 0x000000);
+	var speed=5;
+	var actualspeed=speed*delta;
+	if(keyboard['w']){
+	controls.moveForward(actualspeed);
+	}
+	if(keyboard['s']){
+	controls.moveForward(-actualspeed);
+	}
+	if(keyboard['d']){
+	controls.moveRight(actualspeed);
+	}
+	if(keyboard['a']){
+	controls.moveRight(-actualspeed);
+	}
+}
+*/
+ /* Add this function to check for collision with walls or objects
+function checkCollision() {
+    // Get camera position
+    const cameraPosition = controls.getObject().position;
+
+    // Check collision with walls or objects
+    // Example: Check collision with a wall positioned at (x, y, z)
+    const wallBoundingBox = new THREE.Box3().setFromObject(wallMesh);
+    if (wallBoundingBox.containsPoint(cameraPosition)) {
+        // If camera position intersects with the wall, adjust camera position to prevent collision
+        // Example: Move camera away from the wall
+        controls.getObject().position.x += 0.1; // Move camera along X-axis
+    }
+}
+
+/* Modify the process_kboard function to include collision detection
+function process_kboard(delta) {
+    checkCollision(); // Check for collision before processing keyboard input
+
+    var speed = 5;
+    var actualspeed = speed * delta;
+    if (keyboard['w']) {
+        controls.moveForward(actualspeed);
+    }
+    if (keyboard['s']) {
+        controls.moveForward(-actualspeed);
+    }
+    if (keyboard['d']) {
+        controls.moveRight(actualspeed);
+    }
+    if (keyboard['a']) {
+        controls.moveRight(-actualspeed);
+    }
+}
+
+// Add this function to detect when the camera is near the stairs
+function checkStairCollision() {
+    const cameraPosition = controls.getObject().position;
+    // Example: Check if camera is near the stairs at position (x, y, z)
+    const stairBoundingBox = new THREE.Box3(new THREE.Vector3(7.5, 0, 9), new THREE.Vector3(10.5, 0.4, 11));
+    if (stairBoundingBox.containsPoint(cameraPosition)) {
+        // If camera position intersects with the stairs, adjust camera position to simulate climbing or descending stairs
+        controls.getObject().position.y += 0.4; // Move camera upward (simulate climbing)
+        controls.getObject().position.z += 1; // Move camera forward (simulate moving up the stairs)
+    }
+}
+
+// Modify the animate function to include stair navigation
+var animate = function () {
+    renderer.render(scene, camera);
+    var delta = clock.getDelta();
+    process_kboard(delta);
+    checkStairCollision(); // Check for stair collision during animation
+    requestAnimationFrame(animate);
+};*/
+
+  /*  function onMouseClick() {
+        if (!controls.isLocked) {
+            controls.lock();
+        }
+    }
+
+    document.addEventListener('click', onMouseClick, false);
+  var animate = function () {
+  renderer.render(scene, camera);
+  var delta =clock.getDelta();
+  process_kboard(delta);
+    requestAnimationFrame(animate);
+    
+  };
+*/
+ const points = [
+     new THREE.Vector3(5, 1.5, 20),
+      new THREE.Vector3(4, 1.5, 3.5),
+      new THREE.Vector3(4, 1.5, 3.5),
+       new THREE.Vector3(-14, 1.5, 4),
+       new THREE.Vector3(-13, 1.5, 4),
+        new THREE.Vector3(4, 1.5, 4),
+        new THREE.Vector3(4, 1.5, 4.5),
+         new THREE.Vector3(4, 1.5, -13),
+         new THREE.Vector3(6, 1.5, -12),
+         new THREE.Vector3(7, 2, -11.8),
+         new THREE.Vector3(8, 2.3, -11.9),
+         new THREE.Vector3(11, 2.3, -11.9),
+         new THREE.Vector3(13, 2.6, -11.9),
+          new THREE.Vector3(12.7, 2.8, -11.7),
+          new THREE.Vector3(12.4, 3, -11.8),
+          new THREE.Vector3(12.4, 3.2, -11.9),
+	new THREE.Vector3(12.3, 3.3, -11.4),
+	new THREE.Vector3(12.3, 3.4, -11.2),
+	new THREE.Vector3(11.3, 3.4, -11.2),
+	new THREE.Vector3(10.5, 3.8, -11.1),
+	new THREE.Vector3(8.5, 4.5, -11.1),
+	new THREE.Vector3(6, 5, -11.1),
+	new THREE.Vector3(5.3, 5.5, -11.1),
+	new THREE.Vector3(5, 6, -11.1),
+	new THREE.Vector3(5, 6, 3.8),
+	new THREE.Vector3(4, 6, 3.8),
+	new THREE.Vector3(3, 6, 3.8),
+	new THREE.Vector3(-12, 6, 3.8),
+	new THREE.Vector3(5.5, 6, 3.8),
+	new THREE.Vector3(5.5, 6, 4),
+	new THREE.Vector3(5.5, 6, 4.5),
+	new THREE.Vector3(5.5, 6, 6.5),
+	new THREE.Vector3(5.5, 6, 11),
+	new THREE.Vector3(6, 5.5, 11),
+	new THREE.Vector3(6.2, 5.2, 11),
+	new THREE.Vector3(6.2, 5, 11),
+	new THREE.Vector3(7, 5, 11),
+	new THREE.Vector3(8, 5, 11),
+	new THREE.Vector3(10, 4, 11),
+	new THREE.Vector3(12.5, 3.5, 10.9),
+	new THREE.Vector3(12.5, 3.2, 10.6),
+	new THREE.Vector3(12.5, 3.2, 10.4),
+	new THREE.Vector3(12.5, 3.2, 10),
+	new THREE.Vector3(11, 3.2, 10),
+	new THREE.Vector3(10, 2.8, 10),
+	new THREE.Vector3(8, 2.5, 10),
+	new THREE.Vector3(7, 2, 10),
+	new THREE.Vector3(5, 1.5, 10),
+	new THREE.Vector3(5, 1.5, 10.3),
+	new THREE.Vector3(5, 1.5, 10.7),
+	new THREE.Vector3(5, 1.5, 15),
+
+
+    ];
+
+
+    // Create a CatmullRomCurve3 using the points
+    const curve = new THREE.CatmullRomCurve3(points);
+
+    // Create tube geometry using the curve
+    const tubeGeometry = new THREE.TubeGeometry(curve, 50, 0.5, 10, false);
+    const tubeMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0 });
+    const tube = new THREE.Mesh(tubeGeometry, tubeMaterial);
+    scene.add(tube);
+    	
+
+
+   function updateCamera() {
+            const time = clock.getElapsedTime();
+            const looptime = 50;
+            const t = (time % looptime) / looptime;
+            const t2 = ((time + 0.1) % looptime) / looptime;
+            const pos = curve.getPointAt(t);
+            const pos2 = curve.getPointAt(t2);
+            camera.position.copy(pos);
+            camera.lookAt(pos2);
+        }
+
+        const animate = function () {
+            requestAnimationFrame(animate);
+            updateCamera();
+            renderer.render(scene, camera);
+        };      
+  animate();
+  
+   	 
+    
+	
+    </script>
+  </body>
+</html>
+
